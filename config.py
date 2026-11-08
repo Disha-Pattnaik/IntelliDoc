@@ -1,16 +1,15 @@
 import os
+import streamlit as st
 from dotenv import load_dotenv
 
-# Load environment variables from .env
 load_dotenv()
 
-# Retrieve Gemini API key
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-# Validate API key
 if not GEMINI_API_KEY:
-    raise ValueError(
-        "Gemini API key not found. Please check your .env file."
-    )
+    try:
+        GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
+    except (KeyError, FileNotFoundError):
+        raise ValueError("Gemini API key not found.")
 
 print("Configuration loaded successfully!")
