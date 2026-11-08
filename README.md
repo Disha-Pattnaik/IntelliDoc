@@ -1,10 +1,12 @@
 # IntelliDoc – AI-Powered Document Assistant
-## 🚀 Live Demo
 
-Try IntelliDoc here: **[Launch IntelliDoc](https://my-intellidoc.streamlit.app)**
+## Live Demo
 
-Upload a PDF, ask questions, generate document summaries, and create interview questions using AI.
-IntelliDoc is an AI-powered document assistant that allows users to upload PDF documents, ask questions, generate summaries, and prepare interview questions using Generative AI and Retrieval-Augmented Generation (RAG).
+Try IntelliDoc here:
+
+🚀 [Launch IntelliDoc](https://my-intellidoc.streamlit.app/)
+
+Upload a PDF and explore document question answering, summarisation and interview question generation.
 
 The project combines Large Language Models (LLMs), semantic search, vector embeddings, and AI-powered tool calling to provide an interactive document analysis experience.
 
@@ -19,8 +21,9 @@ The project combines Large Language Models (LLMs), semantic search, vector embed
 - **Interview Question Generator:** Creates basic, intermediate, and advanced technical questions with answers based on document content.
 - **Agentic AI Assistant:** Integrates Gemini function calling to select and execute document-related tools, including document search, summarisation, and interview question generation.
 - **Interactive Interface:** Provides an easy-to-use web interface built with Streamlit.
-- **Automated Testing:** Uses Pytest to test core PDF chunking and vector search functionality.
-- **Docker Support:** Containerizes the application for consistent execution across environments.
+- **Automated Testing:** Uses Pytest to test PDF processing and FAISS vector search functionality.
+- **Docker Support:** Containerises the application for consistent execution across environments.
+- **CI/CD Automation:** Uses GitHub Actions to automatically execute unit tests and build Docker images when code is pushed or pull requests are created.
 
 ## Technology Stack
 
@@ -35,8 +38,10 @@ The project combines Large Language Models (LLMs), semantic search, vector embed
 | PDF Processing | PyPDF |
 | Testing | Pytest |
 | Environment Management | Python Virtual Environment |
-| Containerization | Docker |
+| Containerisation | Docker |
+| CI/CD | GitHub Actions |
 | Version Control | Git and GitHub |
+| Cloud Deployment | Streamlit Community Cloud |
 
 ## Project Architecture
 
@@ -64,10 +69,17 @@ Available tools:
 
 The agent analyses the user's request and determines which tool or tools are appropriate for completing the task.
 
+**Validation note:** Agentic AI function calling has been implemented. Full end-to-end validation is pending due to Gemini API availability limitations.
+
 ## Project Structure
 
 ```text
 IntelliDoc/
+│
+├── .github/
+│   └── workflows/
+│       ├── ci.yml
+│       └── docker.yml
 │
 ├── tests/
 │   ├── test_pdf_processor.py
@@ -81,7 +93,6 @@ IntelliDoc/
 ├── pdf_processor.py
 ├── vector_store.py
 │
-├── sample.pdf
 ├── requirements.txt
 ├── Dockerfile
 ├── .dockerignore
@@ -148,22 +159,25 @@ http://localhost:8501
 Execute the automated unit tests using:
 
 ```bash
-pytest -v
+pytest -v tests/
 ```
 
 The current test suite covers:
 
-- PDF text chunking.
+- PDF text extraction and chunking.
 - Chunk size and overlap validation.
 - Invalid input handling.
 - FAISS vector index creation.
-- Similarity search and retrieval accuracy.
+- Similarity search and distance calculation.
+- Empty vector store handling.
 
-The existing six unit tests have passed successfully.
+**Test Results: 17 tests passed successfully.**
+
+These are unit tests for PDF processing and vector search. Gemini integration and complete Agentic AI workflows are not covered by the current test suite.
 
 ## Docker Setup and Execution
 
-IntelliDoc supports Docker containerization to provide a consistent application environment.
+IntelliDoc supports Docker containerisation to provide a consistent application environment.
 
 ### 1. Prerequisites
 
@@ -180,54 +194,4 @@ docker build -t intellidoc .
 
 This builds the application image using the project Dockerfile.
 
-The Docker configuration uses CPU-only PyTorch installation to reduce unnecessary GPU-related dependencies.
-
-### 3. Run the Docker container
-
-Make sure the `.env` file exists in the project root, then execute:
-
-```bash
-docker run -p 8501:8501 --env-file .env intellidoc
-```
-
-### 4. Access the application
-
-Open:
-
-```text
-http://localhost:8501
-```
-
-To view running containers:
-
-```bash
-docker ps
-```
-
-To view locally available Docker images:
-
-```bash
-docker images
-```
-
-## GitHub Repository
-
-Source code and project updates:
-
-https://github.com/Disha-Pattnaik/IntelliDoc
-
-## Future Improvements
-
-- Add more comprehensive automated and integration tests.
-- Validate Gemini function calling and agent tool execution.
-- Improve document processing and retrieval accuracy.
-- Add support for multiple document formats.
-- Implement persistent vector storage.
-- Improve error handling and API retry mechanisms.
-- Explore frameworks such as LangChain and LangGraph.
-- Implement cloud-based deployment and CI/CD integration.
-- Enhance the AI Agent with additional tools and automated workflows.
-
-## Project Objective
-
-The objective of IntelliDoc is to demonstrate the practical application of Generative AI, Large Language Models, Retrieval-Augmented Generation, semantic search, vector databases, and agent-based workflows in building an intelligent document assistant.
+The Docker configuration uses CPU-only PyTorch installation to reduce unnecessary
