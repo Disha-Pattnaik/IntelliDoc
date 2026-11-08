@@ -1,5 +1,9 @@
 # IntelliDoc – AI-Powered Document Assistant
+## 🚀 Live Demo
 
+Try IntelliDoc here: **[Launch IntelliDoc](https://my-intellidoc.streamlit.app)**
+
+Upload a PDF, ask questions, generate document summaries, and create interview questions using AI.
 IntelliDoc is an AI-powered document assistant that allows users to upload PDF documents, ask questions, generate summaries, and prepare interview questions using Generative AI and Retrieval-Augmented Generation (RAG).
 
 The project combines Large Language Models (LLMs), semantic search, vector embeddings, and AI-powered tool calling to provide an interactive document analysis experience.
